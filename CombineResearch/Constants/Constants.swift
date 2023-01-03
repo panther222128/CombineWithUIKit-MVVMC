@@ -26,8 +26,11 @@ struct Constants {
         static let url = URL(string: "https://itunes.apple.com/")
     }
     
-    struct EndpointHeaders {
-        static let headers: [String: String] = [:]
+    // MARK: - To be localized
+    
+    struct Message {
+        static let empty: String = "None"
+        static let loadError: String = "Load error"
     }
     
 }

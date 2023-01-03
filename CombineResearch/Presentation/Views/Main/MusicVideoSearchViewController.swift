@@ -24,6 +24,24 @@ final class MusicVideoSearchViewController: UIViewController {
         super.viewDidLoad()
         musicVideoSearchBar.delegate = self
         musicVideoListAdapter = MusicVideoListAdapter(tableView: musicVideoListView, dataSource: mainViewModel, delegate: self)
+        emptyAlert()
+    }
+    
+    private func emptyAlert() {
+        mainViewModel.error
+            .sink { [weak self] message in
+                DispatchQueue.main.async {
+                    self?.alert(with: message)
+                }
+            }
+            .store(in: &cancelBag)
+    }
+    
+    private func alert(with message: String) {
+        let alert = UIAlertController(title: "Empty", message: message, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .destructive)
+        alert.addAction(defaultAction)
+        self.present(alert, animated: true)
     }
     
     static func create(with viewModel: MusicVideosViewModel) -> MusicVideoSearchViewController {
@@ -42,7 +60,8 @@ extension MusicVideoSearchViewController: MusicVideoDelegate {
 }
 
 extension MusicVideoSearchViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchText = searchBar.text, !searchText.isEmpty else { return }
         mainViewModel.didSearch(query: searchText)
         mainViewModel.musicVideos
             .debounce(for: 0.5, scheduler: RunLoop.main)

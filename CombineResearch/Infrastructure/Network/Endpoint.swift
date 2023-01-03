@@ -108,7 +108,7 @@ extension Requestable {
         let url = try self.url(with: networkConfiguration)
         var urlRequest = URLRequest(url: url)
         
-        var headers: [String: String] = Constants.EndpointHeaders.headers
+        var headers: [String: String] = networkConfiguration.headers
         headerParameters.forEach { headers.updateValue($1, forKey: $0) }
         
         let bodyParameters = try bodyParametersEncodable?.toDictionary() ?? self.bodyParameters

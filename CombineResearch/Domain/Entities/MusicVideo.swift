@@ -17,11 +17,12 @@ struct MusicVideo {
     let artistID, trackID: Int
     let artistName, trackName, trackCensoredName: String
     let artistViewURL, trackViewURL: String
-    let previewURL: String
+    let previewURL: String?
     let artworkUrl30, artworkUrl60, artworkUrl100: String
-    let collectionPrice, trackPrice: Double
+    let collectionPrice: Double?
+    let trackPrice: Double?
     let releaseDate: String
     let collectionExplicitness, trackExplicitness: String
-    let trackTimeMillis: Int
+    let trackTimeMillis: Int?
     let country, currency, primaryGenreName: String
 }
