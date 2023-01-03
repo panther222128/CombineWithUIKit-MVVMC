@@ -44,7 +44,7 @@ final class DefaultMusicVideosViewModel: MusicVideosViewModel {
     
     func didSearch(query: String) {
         guard !query.isEmpty else { return }
-        update(MusicVideoQuery(query: query))
+        load(musicVideoQuery: MusicVideoQuery(query: query))
     }
     
 }
@@ -52,15 +52,6 @@ final class DefaultMusicVideosViewModel: MusicVideosViewModel {
 // MARK: - Private
 
 extension DefaultMusicVideosViewModel {
-    
-    private func resetMusicVideo() {
-        musicVideos = CurrentValueSubject<MusicVideos, Error>(MusicVideos(resultCount: 0, results: []))
-    }
-    
-    private func update(_ musicVideoQuery: MusicVideoQuery) {
-        resetMusicVideo()
-        load(musicVideoQuery: musicVideoQuery)
-    }
     
     private func load(musicVideoQuery: MusicVideoQuery) {
         do {
@@ -75,10 +66,10 @@ extension DefaultMusicVideosViewModel {
                         
                     }
                 }, receiveValue: { [weak self] musicVideos in
-                    if musicVideos.resultCount == 0 && musicVideos.results.isEmpty {
+                    if musicVideos.resultCount == 0 || musicVideos.results.isEmpty {
                         self?.error.send(Constants.Message.empty)
                     } else {
-                        self?.musicVideos.send(musicVideos)
+                        self?.musicVideos.value = musicVideos
                     }
                 })
                 .store(in: &self.cancelBag)

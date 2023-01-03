@@ -24,24 +24,8 @@ final class MusicVideoSearchViewController: UIViewController {
         super.viewDidLoad()
         musicVideoSearchBar.delegate = self
         musicVideoListAdapter = MusicVideoListAdapter(tableView: musicVideoListView, dataSource: mainViewModel, delegate: self)
-        emptyAlert()
-    }
-    
-    private func emptyAlert() {
-        mainViewModel.error
-            .sink { [weak self] message in
-                DispatchQueue.main.async {
-                    self?.alert(with: message)
-                }
-            }
-            .store(in: &cancelBag)
-    }
-    
-    private func alert(with message: String) {
-        let alert = UIAlertController(title: "Empty", message: message, preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: "OK", style: .destructive)
-        alert.addAction(defaultAction)
-        self.present(alert, animated: true)
+        subscribeAlert()
+        subscribeMusicVideos()
     }
     
     static func create(with viewModel: MusicVideosViewModel) -> MusicVideoSearchViewController {
@@ -53,6 +37,52 @@ final class MusicVideoSearchViewController: UIViewController {
     
 }
 
+// MARK: - Subscribe
+
+extension MusicVideoSearchViewController {
+    private func subscribeAlert() {
+        mainViewModel.error
+            .sink { [weak self] message in
+                self?.alert(with: message)
+            }
+            .store(in: &cancelBag)
+    }
+    
+    private func subscribeMusicVideos() {
+        mainViewModel.musicVideos
+            .debounce(for: 0.5, scheduler: RunLoop.main)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished:
+                    return
+                    
+                case .failure(let error):
+                    self?.alert(with: error.localizedDescription)
+                    
+                }
+            } receiveValue: { [weak self] _ in
+                self?.musicVideoListView.reloadData()
+            }
+            .store(in: &cancelBag)
+    }
+}
+
+// MARK: - Private
+
+extension MusicVideoSearchViewController {
+    private func alert(with message: String) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Empty", message: message, preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .destructive)
+            alert.addAction(defaultAction)
+            self.present(alert, animated: true)
+        }
+    }
+}
+
+// MARK: - Delegate
+
 extension MusicVideoSearchViewController: MusicVideoDelegate {
     func selectMusicVideo(at indexPath: IndexPath) {
         
@@ -63,15 +93,5 @@ extension MusicVideoSearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text, !searchText.isEmpty else { return }
         mainViewModel.didSearch(query: searchText)
-        mainViewModel.musicVideos
-            .debounce(for: 0.5, scheduler: RunLoop.main)
-            .sink { completion in
-                print(completion)
-            } receiveValue: { [weak self] _ in
-                DispatchQueue.main.async {
-                    self?.musicVideoListView.reloadData()
-                }
-            }
-            .store(in: &cancelBag)
     }
 }
