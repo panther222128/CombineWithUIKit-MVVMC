@@ -42,6 +42,7 @@ final class MusicVideoSearchViewController: UIViewController {
 extension MusicVideoSearchViewController {
     private func subscribeAlert() {
         mainViewModel.error
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] message in
                 self?.alert(with: message)
             }
@@ -72,12 +73,10 @@ extension MusicVideoSearchViewController {
 
 extension MusicVideoSearchViewController {
     private func alert(with message: String) {
-        DispatchQueue.main.async {
-            let alert = UIAlertController(title: "Empty", message: message, preferredStyle: .alert)
-            let defaultAction = UIAlertAction(title: "OK", style: .destructive)
-            alert.addAction(defaultAction)
-            self.present(alert, animated: true)
-        }
+        let alert = UIAlertController(title: "Empty", message: message, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .destructive)
+        alert.addAction(defaultAction)
+        self.present(alert, animated: true)
     }
 }
 
