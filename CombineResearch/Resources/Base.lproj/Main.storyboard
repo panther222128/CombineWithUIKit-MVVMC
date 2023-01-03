@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="679-eU-cmO">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Music Video Search View Controller-->
+        <scene sceneID="Wci-iZ-fnh">
+            <objects>
+                <viewController storyboardIdentifier="MusicVideoSearchViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="679-eU-cmO" customClass="MusicVideoSearchViewController" customModule="CombineResearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YVJ-cV-oeI">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="XMo-tN-Loz">
+                                <rect key="frame" x="0.0" y="115" width="393" height="703"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Jw6-7q-Uvc">
+                                <rect key="frame" x="0.0" y="59" width="393" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="679-eU-cmO" id="2mH-wo-9B5"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="BF1-bB-va1"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="XMo-tN-Loz" firstAttribute="top" secondItem="Jw6-7q-Uvc" secondAttribute="bottom" id="8N1-Ei-Y7h"/>
+                            <constraint firstItem="Jw6-7q-Uvc" firstAttribute="top" secondItem="BF1-bB-va1" secondAttribute="top" id="MVR-m9-gIs"/>
+                            <constraint firstItem="XMo-tN-Loz" firstAttribute="leading" secondItem="BF1-bB-va1" secondAttribute="leading" id="OSA-ve-WaP"/>
+                            <constraint firstItem="BF1-bB-va1" firstAttribute="bottom" secondItem="XMo-tN-Loz" secondAttribute="bottom" id="QOL-gu-fsZ"/>
+                            <constraint firstItem="BF1-bB-va1" firstAttribute="trailing" secondItem="XMo-tN-Loz" secondAttribute="trailing" id="RCs-YB-UnW"/>
+                            <constraint firstItem="BF1-bB-va1" firstAttribute="trailing" secondItem="Jw6-7q-Uvc" secondAttribute="trailing" id="faw-t7-Nrd"/>
+                            <constraint firstItem="Jw6-7q-Uvc" firstAttribute="leading" secondItem="BF1-bB-va1" secondAttribute="leading" id="i5m-xn-15j"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="musicVideoListView" destination="XMo-tN-Loz" id="imj-mU-KSJ"/>
+                        <outlet property="musicVideoSearchBar" destination="Jw6-7q-Uvc" id="8Mm-YT-N9H"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aPZ-tW-Mz0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="180.91603053435114" y="69.718309859154928"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
