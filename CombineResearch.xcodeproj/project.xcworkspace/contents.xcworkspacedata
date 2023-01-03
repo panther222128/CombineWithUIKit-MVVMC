@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/horus/Documents/Research/RxSwiftResearch/CombineResearch.xcodeproj">
+      location = "self:../CombineResearch">
    </FileRef>
 </Workspace>
