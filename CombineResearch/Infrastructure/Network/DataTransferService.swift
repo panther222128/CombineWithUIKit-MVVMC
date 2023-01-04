@@ -8,8 +8,7 @@
 import Foundation
 import Combine
 
-enum DataTransferError: String, Error {
-    case request
+enum DataTransferError: Error {
     case noResponse
 }
 
@@ -31,7 +30,7 @@ final class DefaultDataTransferService: DataTransferService {
                 .decode(type: T.self, decoder: endpoint.responseDecoder)
                 .eraseToAnyPublisher()
         } catch {
-            throw DataTransferError.request
+            throw DataTransferError.noResponse
         }
     }
     

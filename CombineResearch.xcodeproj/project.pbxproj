@@ -39,6 +39,8 @@
 		A99963642963073500915333 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99963632963073500915333 /* Int.swift */; };
 		A99963662963DC9400915333 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99963652963DC9400915333 /* AppConfiguration.swift */; };
 		A99963682963DE1800915333 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99963672963DE1800915333 /* NetworkConfiguration.swift */; };
+		A9FF04662965584000AD599F /* MusicVideoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FF04652965584000AD599F /* MusicVideoDetailViewController.swift */; };
+		A9FF04682965585400AD599F /* MusicVideoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FF04672965585400AD599F /* MusicVideoDetailViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +78,8 @@
 		A99963632963073500915333 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		A99963652963DC9400915333 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		A99963672963DE1800915333 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
+		A9FF04652965584000AD599F /* MusicVideoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicVideoDetailViewController.swift; sourceTree = "<group>"; };
+		A9FF04672965585400AD599F /* MusicVideoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicVideoDetailViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,7 +241,8 @@
 		A92D17EE29596B5200C0F79A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A92D17F429596C3200C0F79A /* Main */,
+				A92D17F429596C3200C0F79A /* MusicVideoSearchView */,
+				A9FF045C2965578400AD599F /* MusicVideoDetailView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -250,16 +255,15 @@
 			path = Flow;
 			sourceTree = "<group>";
 		};
-		A92D17F429596C3200C0F79A /* Main */ = {
+		A92D17F429596C3200C0F79A /* MusicVideoSearchView */ = {
 			isa = PBXGroup;
 			children = (
-				A92D17F229596BF800C0F79A /* MusicVideoSearchViewController.swift */,
-				A92D17F529596C4000C0F79A /* MusicVideosViewModel.swift */,
-				A9902DD1296026B60030DF25 /* MusicVideoListAdapter.swift */,
-				A92D8E4929602929007F7F5C /* MusicVideoCell.swift */,
-				A92D8E4A29602929007F7F5C /* MusicVideoCell.xib */,
+				A9FF045F296557D800AD599F /* Components */,
+				A9FF0460296557E400AD599F /* ViewModel */,
+				A9FF045E296557D000AD599F /* Controller */,
+				A9FF045D296557CB00AD599F /* View */,
 			);
-			path = Main;
+			path = MusicVideoSearchView;
 			sourceTree = "<group>";
 		};
 		A92D17F729596D3900C0F79A /* Network */ = {
@@ -295,6 +299,80 @@
 				A92D18092959767E00C0F79A /* Constants.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		A9FF045C2965578400AD599F /* MusicVideoDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				A9FF0464296557FF00AD599F /* Components */,
+				A9FF0463296557FB00AD599F /* ViewModel */,
+				A9FF0462296557F600AD599F /* Controller */,
+				A9FF0461296557EF00AD599F /* View */,
+			);
+			path = MusicVideoDetailView;
+			sourceTree = "<group>";
+		};
+		A9FF045D296557CB00AD599F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A92D8E4929602929007F7F5C /* MusicVideoCell.swift */,
+				A92D8E4A29602929007F7F5C /* MusicVideoCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A9FF045E296557D000AD599F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A92D17F229596BF800C0F79A /* MusicVideoSearchViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		A9FF045F296557D800AD599F /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				A9902DD1296026B60030DF25 /* MusicVideoListAdapter.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		A9FF0460296557E400AD599F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A92D17F529596C4000C0F79A /* MusicVideosViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A9FF0461296557EF00AD599F /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A9FF0462296557F600AD599F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A9FF04652965584000AD599F /* MusicVideoDetailViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		A9FF0463296557FB00AD599F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A9FF04672965585400AD599F /* MusicVideoDetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A9FF0464296557FF00AD599F /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -371,10 +449,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				A921867C295D82D700F1623D /* MusicVideoRequestDTO.swift in Sources */,
+				A9FF04662965584000AD599F /* MusicVideoDetailViewController.swift in Sources */,
 				A92D1805295974E700C0F79A /* DefaultMusicVideoSearchRepository.swift in Sources */,
 				A9218674295D71A300F1623D /* Dictionary.swift in Sources */,
 				A92D17FB29596D5800C0F79A /* NetworkService.swift in Sources */,
 				A9218679295D81A200F1623D /* APIEndpoints.swift in Sources */,
+				A9FF04682965585400AD599F /* MusicVideoDetailViewModel.swift in Sources */,
 				A92D17F929596D4800C0F79A /* DataTransferService.swift in Sources */,
 				A92D18002959741700C0F79A /* MusicVideoSearchUseCase.swift in Sources */,
 				A92D8E4B29602929007F7F5C /* MusicVideoCell.swift in Sources */,

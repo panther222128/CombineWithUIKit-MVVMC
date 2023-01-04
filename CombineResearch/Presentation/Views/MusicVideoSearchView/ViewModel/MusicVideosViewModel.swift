@@ -13,10 +13,11 @@ protocol MusicVideosViewModel: MusicVideoDataSource {
     var musicVideos: CurrentValueSubject<MusicVideos, Error> { get }
     
     func didSearch(query: String)
+    func didSelectItem(at index: Int)
 }
 
 struct MusicVideoSearchAction {
-    
+    let showMusicVideoDetail: (MusicVideo) -> Void
 }
 
 final class DefaultMusicVideosViewModel: MusicVideosViewModel {
@@ -45,6 +46,10 @@ final class DefaultMusicVideosViewModel: MusicVideosViewModel {
     func didSearch(query: String) {
         guard !query.isEmpty else { return }
         load(musicVideoQuery: MusicVideoQuery(query: query))
+    }
+    
+    func didSelectItem(at index: Int) {
+        action.showMusicVideoDetail(musicVideos.value.results[index])
     }
     
 }

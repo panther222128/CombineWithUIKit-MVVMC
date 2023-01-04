@@ -39,8 +39,16 @@ final class SceneDIContainer: ViewFlowCoordinatorDependencies {
         return DefaultMusicVideosViewModel(musicVideoSearchUseCase: makeMusicVideoSearchUseCase(), action: action)
     }
     
-    func  makeMusicVideoSearchViewController(action: MusicVideoSearchAction) -> MusicVideoSearchViewController {
+    func makeMusicVideoSearchViewController(action: MusicVideoSearchAction) -> MusicVideoSearchViewController {
         return MusicVideoSearchViewController.create(with: makeMusicVideosViewModel(action: action))
+    }
+    
+    func makeMusicVideoDetailViewModel(musicVideo: MusicVideo) -> MusicVideoDetailViewModel {
+        return DefaultMusicVideoDetailViewModel(musicVideo: musicVideo)
+    }
+    
+    func makeMusicVideoDetailViewController(musicVideo: MusicVideo) -> MusicVideoDetailViewController {
+        return MusicVideoDetailViewController.create(with: makeMusicVideoDetailViewModel(musicVideo: musicVideo))
     }
     
 }

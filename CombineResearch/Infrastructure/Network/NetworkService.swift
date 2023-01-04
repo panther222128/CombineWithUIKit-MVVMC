@@ -8,7 +8,12 @@
 import Foundation
 import Combine
 
-enum NetworkSessionError: String, Error {
+enum NetworkError: Error {
+    case error(statusCode: Int, data: Data?)
+    case notConnected
+    case cancelled
+    case generic(Error)
+    case urlGeneration
     case session
 }
 
@@ -33,13 +38,10 @@ final class DefaultNetworkService: NetworkService {
                 .tryMap() { data, response in
                     return data
                 }
-                .mapError() { error in
-                    return error
-                }
                 .eraseToAnyPublisher()
             
         } catch {
-            throw NetworkSessionError.session
+            throw NetworkError.session
         }
     }
     
@@ -56,7 +58,7 @@ final class DefaultNetworkSessionManager: NetworkSessionManager {
     }
     
     func request(_ request: URLRequest) throws -> URLSession.DataTaskPublisher {
-        guard let url = request.url else { throw NetworkSessionError.session }
+        guard let url = request.url else { throw NetworkError.session }
         return URLSession.shared.dataTaskPublisher(for: url)
     }
     

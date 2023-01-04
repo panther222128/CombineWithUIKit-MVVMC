@@ -49,6 +49,81 @@
             </objects>
             <point key="canvasLocation" x="180.91603053435114" y="69.718309859154928"/>
         </scene>
+        <!--Music Video Detail View Controller-->
+        <scene sceneID="LOf-wd-Eng">
+            <objects>
+                <viewController storyboardIdentifier="MusicVideoDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4Dx-3F-u9D" customClass="MusicVideoDetailViewController" customModule="CombineResearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WCi-Kn-cFp">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y1s-Rh-lL8">
+                                <rect key="frame" x="76" y="59" width="240" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Y1s-Rh-lL8" secondAttribute="height" multiplier="1:1" id="tw5-jx-YEi"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="01T-hQ-ZWP">
+                                <rect key="frame" x="16" y="307" width="361" height="511"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xpv-gE-Snv">
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="102.33333333333333"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x2h-fE-LnE">
+                                        <rect key="frame" x="0.0" y="102.33333333333331" width="361" height="102"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tdj-6J-DBx">
+                                        <rect key="frame" x="0.0" y="204.33333333333331" width="361" height="102.33333333333331"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FMI-ds-dd0">
+                                        <rect key="frame" x="0.0" y="306.66666666666663" width="361" height="102"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E0e-n1-D2j">
+                                        <rect key="frame" x="0.0" y="408.66666666666663" width="361" height="102.33333333333331"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="cgN-BY-3jr"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Y1s-Rh-lL8" firstAttribute="leading" secondItem="cgN-BY-3jr" secondAttribute="leading" constant="76" id="8hp-cp-qb1"/>
+                            <constraint firstItem="cgN-BY-3jr" firstAttribute="trailing" secondItem="01T-hQ-ZWP" secondAttribute="trailing" constant="16" id="E7G-H9-ezf"/>
+                            <constraint firstItem="Y1s-Rh-lL8" firstAttribute="top" secondItem="cgN-BY-3jr" secondAttribute="top" id="Fom-lE-SRa"/>
+                            <constraint firstItem="01T-hQ-ZWP" firstAttribute="top" secondItem="Y1s-Rh-lL8" secondAttribute="bottom" constant="8" symbolic="YES" id="IoE-rc-s3u"/>
+                            <constraint firstItem="cgN-BY-3jr" firstAttribute="trailing" secondItem="Y1s-Rh-lL8" secondAttribute="trailing" constant="77" id="Q1r-qA-8MP"/>
+                            <constraint firstItem="cgN-BY-3jr" firstAttribute="bottom" secondItem="01T-hQ-ZWP" secondAttribute="bottom" id="Ten-7C-K8a"/>
+                            <constraint firstItem="01T-hQ-ZWP" firstAttribute="leading" secondItem="cgN-BY-3jr" secondAttribute="leading" constant="16" id="tJh-AU-Lhq"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="artistNameLabel" destination="Tdj-6J-DBx" id="4v1-cb-aJp"/>
+                        <outlet property="artworkImageView" destination="Y1s-Rh-lL8" id="QXS-lz-tKl"/>
+                        <outlet property="countryLabel" destination="E0e-n1-D2j" id="Wff-Sy-Dcb"/>
+                        <outlet property="primaryGenreNameLabel" destination="FMI-ds-dd0" id="bcc-gw-Az7"/>
+                        <outlet property="trackNameLabel" destination="x2h-fE-LnE" id="wrh-Qw-pIL"/>
+                        <outlet property="trackTimeLabel" destination="xpv-gE-Snv" id="NBa-0P-BHg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EMA-K2-thD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="910.68702290076328" y="69.718309859154928"/>
+        </scene>
     </scenes>
     <resources>
         <systemColor name="systemBackgroundColor">

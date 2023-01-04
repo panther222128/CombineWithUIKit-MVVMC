@@ -16,14 +16,14 @@ final class MusicVideoSearchViewController: UIViewController {
     @IBOutlet weak var musicVideoSearchBar: UISearchBar!
     @IBOutlet weak var musicVideoListView: UITableView!
     
-    private var mainViewModel: MusicVideosViewModel!
+    private var viewModel: MusicVideosViewModel!
     private var cancelBag: Set<AnyCancellable> = Set([])
     private var musicVideoListAdapter: MusicVideoListAdapter?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         musicVideoSearchBar.delegate = self
-        musicVideoListAdapter = MusicVideoListAdapter(tableView: musicVideoListView, dataSource: mainViewModel, delegate: self)
+        musicVideoListAdapter = MusicVideoListAdapter(tableView: musicVideoListView, dataSource: viewModel, delegate: self)
         subscribeAlert()
         subscribeMusicVideos()
     }
@@ -31,7 +31,7 @@ final class MusicVideoSearchViewController: UIViewController {
     static func create(with viewModel: MusicVideosViewModel) -> MusicVideoSearchViewController {
         let storyboard = UIStoryboard(name: storyboardName, bundle: Bundle.main)
         guard let viewController = storyboard.instantiateViewController(withIdentifier: storyboardID) as? MusicVideoSearchViewController else { return .init() }
-        viewController.mainViewModel = viewModel
+        viewController.viewModel = viewModel
         return viewController
     }
     
@@ -41,7 +41,7 @@ final class MusicVideoSearchViewController: UIViewController {
 
 extension MusicVideoSearchViewController {
     private func subscribeAlert() {
-        mainViewModel.error
+        viewModel.error
             .receive(on: DispatchQueue.main)
             .sink { [weak self] message in
                 self?.alert(with: message)
@@ -50,7 +50,7 @@ extension MusicVideoSearchViewController {
     }
     
     private func subscribeMusicVideos() {
-        mainViewModel.musicVideos
+        viewModel.musicVideos
             .debounce(for: 0.5, scheduler: RunLoop.main)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
@@ -73,7 +73,7 @@ extension MusicVideoSearchViewController {
 
 extension MusicVideoSearchViewController {
     private func alert(with message: String) {
-        let alert = UIAlertController(title: "Empty", message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         let defaultAction = UIAlertAction(title: "OK", style: .destructive)
         alert.addAction(defaultAction)
         self.present(alert, animated: true)
@@ -84,13 +84,13 @@ extension MusicVideoSearchViewController {
 
 extension MusicVideoSearchViewController: MusicVideoDelegate {
     func selectMusicVideo(at indexPath: IndexPath) {
-        
+        viewModel.didSelectItem(at: indexPath.row)
     }
 }
 
 extension MusicVideoSearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text, !searchText.isEmpty else { return }
-        mainViewModel.didSearch(query: searchText)
+        viewModel.didSearch(query: searchText)
     }
 }

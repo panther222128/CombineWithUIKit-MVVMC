@@ -10,6 +10,7 @@ import UIKit
 protocol ViewFlowCoordinatorDependencies {
     func makeTabBarController() -> UITabBarController
     func makeMusicVideoSearchViewController(action: MusicVideoSearchAction) -> MusicVideoSearchViewController
+    func makeMusicVideoDetailViewController(musicVideo: MusicVideo) -> MusicVideoDetailViewController
 }
 
 final class ViewFlowCoordinator {
@@ -31,7 +32,7 @@ final class ViewFlowCoordinator {
         self.tabBarController?.tabBar.tintColor = .black
         self.tabBarController?.tabBar.unselectedItemTintColor = .black
         
-        let mainViewModelAction = MusicVideoSearchAction()
+        let mainViewModelAction = MusicVideoSearchAction(showMusicVideoDetail: showMusicVideoDetail)
         
         let mainViewController = dependencies.makeMusicVideoSearchViewController(action: mainViewModelAction)
         self.mainViewController = mainViewController
@@ -46,6 +47,11 @@ final class ViewFlowCoordinator {
         
         self.tabBarController?.viewControllers = [mainViewController]
         self.navigationController?.pushViewController(tabBarController, animated: true)
+    }
+    
+    private func showMusicVideoDetail(musicVideo: MusicVideo) {
+        let viewController = dependencies.makeMusicVideoDetailViewController(musicVideo: musicVideo)
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
 }
