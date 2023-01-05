@@ -14,7 +14,7 @@ enum NetworkError: Error {
     case cancelled
     case generic(Error)
     case urlGeneration
-    case session
+    case httpURLResponse
 }
 
 protocol NetworkService {
@@ -36,12 +36,16 @@ final class DefaultNetworkService: NetworkService {
             let urlRequest = try endpoint.urlRequest(with: configuration)
             return try networkSessionManager.request(urlRequest)
                 .tryMap() { data, response in
+                    guard let httpResponse = response as? HTTPURLResponse else { throw NetworkError.httpURLResponse }
+                    if httpResponse.statusCode != 200 {
+                        throw NetworkError.error(statusCode: httpResponse.statusCode, data: data)
+                    }
                     return data
                 }
                 .eraseToAnyPublisher()
             
         } catch {
-            throw NetworkError.session
+            throw NetworkError.urlGeneration
         }
     }
     
@@ -58,7 +62,7 @@ final class DefaultNetworkSessionManager: NetworkSessionManager {
     }
     
     func request(_ request: URLRequest) throws -> URLSession.DataTaskPublisher {
-        guard let url = request.url else { throw NetworkError.session }
+        guard let url = request.url else { throw NetworkError.urlGeneration }
         return URLSession.shared.dataTaskPublisher(for: url)
     }
     
