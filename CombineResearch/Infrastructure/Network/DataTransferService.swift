@@ -10,6 +10,7 @@ import Combine
 
 enum DataTransferError: Error {
     case noResponse
+    case decode
 }
 
 protocol DataTransferService {
@@ -28,6 +29,9 @@ final class DefaultDataTransferService: DataTransferService {
         do {
             return try networkService.request(endpoint: endpoint)
                 .decode(type: T.self, decoder: endpoint.responseDecoder)
+                .mapError({ error in
+                    return DataTransferError.decode
+                })
                 .eraseToAnyPublisher()
         } catch {
             throw DataTransferError.noResponse

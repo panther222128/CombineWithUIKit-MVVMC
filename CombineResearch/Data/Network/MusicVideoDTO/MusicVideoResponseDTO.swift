@@ -18,7 +18,7 @@ struct MusicVideosResponseDTO: Decodable {
 }
 
 struct MusicVideoResponseDTO: Decodable {
-    let wrapperType, kind: String
+    let wrapperType, kind: Int
     let artistID, trackID: Int
     let artistName, trackName, trackCensoredName: String
     let artistViewURL, trackViewURL: String

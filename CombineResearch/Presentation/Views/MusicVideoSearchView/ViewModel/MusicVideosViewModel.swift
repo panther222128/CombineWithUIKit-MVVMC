@@ -67,7 +67,7 @@ extension DefaultMusicVideosViewModel {
                         return
                         
                     case .failure(let error):
-                        self?.error.send(error.localizedDescription)
+                        self?.error.send("\(error)")
                         
                     }
                 }, receiveValue: { [weak self] musicVideos in
