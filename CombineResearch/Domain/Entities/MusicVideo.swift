@@ -13,7 +13,7 @@ struct MusicVideos {
 }
 
 struct MusicVideo {
-    let wrapperType, kind: Int
+    let wrapperType, kind: String
     let artistID, trackID: Int
     let artistName, trackName, trackCensoredName: String
     let artistViewURL, trackViewURL: String
