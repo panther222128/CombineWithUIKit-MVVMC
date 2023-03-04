@@ -18,7 +18,7 @@ enum NetworkError: Error {
 }
 
 protocol NetworkService {
-    func request(endpoint: any Requestable) throws -> AnyPublisher<Data, Error>
+    func request(endpoint: some Requestable) throws -> AnyPublisher<Data, Error>
 }
 
 final class DefaultNetworkService: NetworkService {
@@ -31,7 +31,7 @@ final class DefaultNetworkService: NetworkService {
         self.networkSessionManager = DefaultNetworkSessionManager()
     }
     
-    func request(endpoint: any Requestable) throws -> AnyPublisher<Data, Error> {
+    func request(endpoint: some Requestable) throws -> AnyPublisher<Data, Error> {
         do {
             let urlRequest = try endpoint.urlRequest(with: configuration)
             return try networkSessionManager.request(urlRequest)

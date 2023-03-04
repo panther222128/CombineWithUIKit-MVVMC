@@ -38,7 +38,6 @@ final class MusicVideoSearchViewController: UIViewController {
 }
 
 // MARK: - Subscribe
-
 extension MusicVideoSearchViewController {
     private func subscribeAlert() {
         viewModel.error
@@ -70,7 +69,6 @@ extension MusicVideoSearchViewController {
 }
 
 // MARK: - Private
-
 extension MusicVideoSearchViewController {
     private func alert(with message: String) {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
@@ -81,10 +79,13 @@ extension MusicVideoSearchViewController {
 }
 
 // MARK: - Delegate
-
 extension MusicVideoSearchViewController: MusicVideoDelegate {
     func selectMusicVideo(at indexPath: IndexPath) {
         viewModel.didSelectItem(at: indexPath.row)
+    }
+    
+    func heightForRow(at indexPath: IndexPath) -> CGFloat {
+        return 100
     }
 }
 

@@ -14,11 +14,12 @@ protocol MusicVideoDataSource: AnyObject {
 
 protocol MusicVideoDelegate: AnyObject {
     func selectMusicVideo(at indexPath: IndexPath)
+    func heightForRow(at indexPath: IndexPath) -> CGFloat
 }
 
 final class MusicVideoListAdapter: NSObject {
     
-    var tableView: UITableView
+    private let tableView: UITableView
     weak var dataSource: MusicVideoDataSource?
     weak var delegate: MusicVideoDelegate?
     
@@ -51,7 +52,7 @@ extension MusicVideoListAdapter: UITableViewDataSource {
 
 extension MusicVideoListAdapter: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return delegate?.heightForRow(at: indexPath) ?? 0
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
