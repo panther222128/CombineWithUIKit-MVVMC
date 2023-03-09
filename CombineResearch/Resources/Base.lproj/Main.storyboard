@@ -57,7 +57,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y1s-Rh-lL8">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y1s-Rh-lL8" customClass="CachedImageView" customModule="CombineResearch" customModuleProvider="target">
                                 <rect key="frame" x="76" y="59" width="240" height="240"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Y1s-Rh-lL8" secondAttribute="height" multiplier="1:1" id="tw5-jx-YEi"/>
@@ -113,7 +113,7 @@
                     </view>
                     <connections>
                         <outlet property="artistNameLabel" destination="Tdj-6J-DBx" id="4v1-cb-aJp"/>
-                        <outlet property="artworkImageView" destination="Y1s-Rh-lL8" id="QXS-lz-tKl"/>
+                        <outlet property="artworkImageView" destination="Y1s-Rh-lL8" id="Tmo-4n-Rlg"/>
                         <outlet property="countryLabel" destination="E0e-n1-D2j" id="Wff-Sy-Dcb"/>
                         <outlet property="primaryGenreNameLabel" destination="FMI-ds-dd0" id="bcc-gw-Az7"/>
                         <outlet property="trackNameLabel" destination="x2h-fE-LnE" id="wrh-Qw-pIL"/>

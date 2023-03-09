@@ -12,7 +12,7 @@ class MusicVideoDetailViewController: UIViewController {
     static let storyboardName = "Main"
     static let storyboardID = "MusicVideoDetailViewController"
     
-    @IBOutlet weak var artworkImageView: UIImageView!
+    @IBOutlet weak var artworkImageView: CachedImageView!
     @IBOutlet weak var trackTimeLabel: UILabel!
     @IBOutlet weak var trackNameLabel: UILabel!
     @IBOutlet weak var artistNameLabel: UILabel!
@@ -34,29 +34,12 @@ class MusicVideoDetailViewController: UIViewController {
     }
     
     private func setupViews() {
-        loadImage(from: viewModel.artworkUrl100)
         trackTimeLabel.text = viewModel.trackTimeMillis?.convertMillisecondsToTimeString()
         trackNameLabel.text = viewModel.trackName
         artistNameLabel.text = viewModel.artistName
         primaryGenreNameLabel.text = viewModel.primaryGenreName
         countryLabel.text = viewModel.country
+        artworkImageView.loadImage(with: viewModel.artworkUrl100)
     }
-    
-    private func loadImage(from stringURL: String) {
-        guard let url = URL(string: stringURL) else {
-            artworkImageView.backgroundColor = .gray
-            return
-        }
-        DispatchQueue.global().async { [weak self] in
-            guard let imageData = try? Data(contentsOf: url) else {
-                self?.artworkImageView.backgroundColor = .gray
-                return
-            }
-            DispatchQueue.main.async {
-                self?.artworkImageView.image = UIImage(data: imageData)
-            }
-        }
-    }
-    
     
 }
