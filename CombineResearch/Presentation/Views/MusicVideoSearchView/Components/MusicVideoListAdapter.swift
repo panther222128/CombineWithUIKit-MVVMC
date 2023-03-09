@@ -20,8 +20,8 @@ protocol MusicVideoDelegate: AnyObject {
 final class MusicVideoListAdapter: NSObject {
     
     private let tableView: UITableView
-    weak var dataSource: MusicVideoDataSource?
-    weak var delegate: MusicVideoDelegate?
+    private weak var dataSource: MusicVideoDataSource?
+    private weak var delegate: MusicVideoDelegate?
     
     init(tableView: UITableView, dataSource: MusicVideoDataSource?, delegate: MusicVideoDelegate?) {
         tableView.register(UINib(nibName: "MusicVideoCell", bundle: .main), forCellReuseIdentifier: "MusicVideoCellID")

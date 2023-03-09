@@ -18,12 +18,12 @@ protocol MusicVideoDetailViewModel {
 
 final class DefaultMusicVideoDetailViewModel: MusicVideoDetailViewModel {
     
-    let artistName: String
-    let trackName: String
-    let artworkUrl100: String
-    let trackTimeMillis: Int?
-    let country: String
-    let primaryGenreName: String
+    private(set) var artistName: String
+    private(set) var trackName: String
+    private(set) var artworkUrl100: String
+    private(set) var trackTimeMillis: Int?
+    private(set) var country: String
+    private(set) var primaryGenreName: String
     
     init(musicVideo: MusicVideo) {
         self.artistName = musicVideo.artistName

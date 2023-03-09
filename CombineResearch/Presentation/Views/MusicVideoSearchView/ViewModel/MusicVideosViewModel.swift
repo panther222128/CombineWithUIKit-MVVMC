@@ -21,9 +21,9 @@ struct MusicVideoSearchAction {
 
 final class DefaultMusicVideosViewModel: MusicVideosViewModel {
     
-    var cancelBag: Set<AnyCancellable>
-    var error: PassthroughSubject<String, Never>
-    var musicVideos: CurrentValueSubject<MusicVideos, Error>
+    private var cancelBag: Set<AnyCancellable>
+    private(set) var error: PassthroughSubject<String, Never>
+    private(set) var musicVideos: CurrentValueSubject<MusicVideos, Error>
     
     private let limit: Int
     private let offset: Int
