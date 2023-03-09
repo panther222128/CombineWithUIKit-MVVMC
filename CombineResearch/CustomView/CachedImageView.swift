@@ -14,7 +14,10 @@ final class CachedImageView: UIImageView {
     
     func loadImage(with urlString: String) {
         self.imageURLString = urlString
-        guard let url = URL(string: urlString) else { return }
+        guard let url = URL(string: urlString) else {
+            image = .init()
+            return
+        }
         image = nil
         if let cachedImage = imageCache.object(forKey: urlString as NSString) {
             self.image = cachedImage
@@ -25,8 +28,14 @@ final class CachedImageView: UIImageView {
                 self.image = nil
             }
             DispatchQueue.main.async {
-                guard let data = data else { return }
-                guard let dataImage = UIImage(data: data) else { return }
+                guard let data = data else {
+                    self.image = .init()
+                    return
+                }
+                guard let dataImage = UIImage(data: data) else {
+                    self.image = .init()
+                    return
+                }
                 if self.imageURLString == urlString {
                     self.image = dataImage
                 }
