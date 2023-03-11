@@ -9,17 +9,17 @@ import UIKit
 
 final class AppFlowCoordinator {
 
-    var navigationController: UINavigationController
+    private let tabBarController: UITabBarController
     private let appDIContainer: AppDIContainer
     
-    init(navigationController: UINavigationController, appDIContainer: AppDIContainer) {
-        self.navigationController = navigationController
+    init(tabBarController: UITabBarController, appDIContainer: AppDIContainer) {
+        self.tabBarController = tabBarController
         self.appDIContainer = appDIContainer
     }
     
     func start() {
         let sceneDIContainer = appDIContainer.makeSceneDIContainer()
-        let flow = sceneDIContainer.makeViewFlowCoordinator(navigationController: navigationController)
+        let flow = sceneDIContainer.makeViewFlowCoordinator(tabBarController: tabBarController)
         flow.start()
     }
     

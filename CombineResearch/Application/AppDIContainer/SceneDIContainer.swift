@@ -18,13 +18,9 @@ final class SceneDIContainer: ViewFlowCoordinatorDependencies {
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
     }
-    
-    func makeTabBarController() -> UITabBarController {
-        return UITabBarController()
-    }
-    
-    func makeViewFlowCoordinator(navigationController: UINavigationController) -> ViewFlowCoordinator {
-        return ViewFlowCoordinator(navigationController: navigationController, dependencies: self)
+
+    func makeViewFlowCoordinator(tabBarController: UITabBarController) -> ViewFlowCoordinator {
+        return ViewFlowCoordinator(tabBarController: tabBarController, dependencies: self)
     }
     
     func makeMusicVideosRepository() -> MusicVideoSearchRepository {
