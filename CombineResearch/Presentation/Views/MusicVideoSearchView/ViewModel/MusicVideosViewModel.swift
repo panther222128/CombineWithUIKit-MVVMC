@@ -90,9 +90,8 @@ extension DefaultMusicVideosViewModel: MusicVideoDataSource {
         return musicVideos.value.resultCount
     }
     
-    func loadMusicVideo(at index: Int) -> MusicVideoCell.ViewModel {
-        let musicVideo = musicVideos.value.results[index]
-        return MusicVideoCell.ViewModel(artist: musicVideo.artistName, videoTitle: musicVideo.trackName, videoLength: musicVideo.trackTimeMillis ?? 0)
+    func loadMusicVideo(at index: Int) -> MusicVideo {
+        return musicVideos.value.results[index]
     }
     
 }

@@ -12,27 +12,25 @@ class MusicVideoCell: UITableViewCell {
     @IBOutlet weak var artist: UILabel!
     @IBOutlet weak var videoTitle: UILabel!
     @IBOutlet weak var videoLength: UILabel!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
     
     func configure(with viewModel: MusicVideoCell.ViewModel) {
-        self.artist.text = viewModel.artist
-        self.videoTitle.text = viewModel.videoTitle
-        self.videoLength.text = viewModel.videoLength.convertMillisecondsToTimeString()
+        artist.text = viewModel.artist
+        videoTitle.text = viewModel.videoTitle
+        videoLength.text = viewModel.videoLength.convertMillisecondsToTimeString()
     }
     
 }
 
 extension MusicVideoCell {
     struct ViewModel {
-        var artist: String
-        var videoTitle: String
-        var videoLength: Int
+        let artist: String
+        let videoTitle: String
+        let videoLength: Int
+        
+        init(musicVideo: MusicVideo) {
+            self.artist = musicVideo.artistName
+            self.videoTitle = musicVideo.trackName
+            self.videoLength = musicVideo.trackTimeMillis ?? 0
+        }
     }
 }

@@ -9,7 +9,7 @@ import UIKit
 
 protocol MusicVideoDataSource: AnyObject {
     func numberOfMusicVideos() -> Int
-    func loadMusicVideo(at index: Int) -> MusicVideoCell.ViewModel
+    func loadMusicVideo(at index: Int) -> MusicVideo
 }
 
 protocol MusicVideoDelegate: AnyObject {
@@ -39,13 +39,14 @@ final class MusicVideoListAdapter: NSObject {
 
 extension MusicVideoListAdapter: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource?.numberOfMusicVideos() ?? 0
+        guard let dataSource = dataSource else { return .init() }
+        return dataSource.numberOfMusicVideos()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MusicVideoCellID", for: indexPath) as? MusicVideoCell else { return .init() }
-        let cellViewModel = dataSource?.loadMusicVideo(at: indexPath.row)
-        cell.configure(with: MusicVideoCell.ViewModel(artist: cellViewModel?.artist ?? "", videoTitle: cellViewModel?.videoTitle ?? "", videoLength: cellViewModel?.videoLength ?? 0))
+        guard let dataSource = dataSource else { return .init() }
+        cell.configure(with: .init(musicVideo: dataSource.loadMusicVideo(at: indexPath.row)))
         return cell
     }
 }
