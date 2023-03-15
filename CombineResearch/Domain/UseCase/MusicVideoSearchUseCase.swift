@@ -7,7 +7,7 @@
 
 import Combine
 
-enum MainUseCaseError: String, Error {
+enum MusicVideoSearchUseCaseError: String, Error {
     case execute
 }
 
@@ -28,7 +28,7 @@ final class DefaultMusicVideoSearchUseCase: MusicVideoSearchUseCase {
             return try musicVideoSearchRepository.fetchMusicVideos(query: requestValue.query, limit: requestValue.limit, offset: requestValue.offset, entity: requestValue.entity)
                 .eraseToAnyPublisher()
         } catch {
-            throw MainUseCaseError.execute
+            throw MusicVideoSearchUseCaseError.execute
         }
     }
     

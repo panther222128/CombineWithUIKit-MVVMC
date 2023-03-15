@@ -18,7 +18,7 @@ final class ViewFlowCoordinator {
     private weak var tabBarController: UITabBarController?
     private let dependencies: ViewFlowCoordinatorDependencies
     
-    private weak var mainViewController: MusicVideoSearchViewController?
+    private weak var musicVideoSearchViewController: MusicVideoSearchViewController?
     
     init(tabBarController: UITabBarController, dependencies: ViewFlowCoordinatorDependencies) {
         self.tabBarController = tabBarController
@@ -29,24 +29,24 @@ final class ViewFlowCoordinator {
         tabBarController?.tabBar.tintColor = .black
         tabBarController?.tabBar.unselectedItemTintColor = .black
         
-        let mainViewModelAction = MusicVideoSearchAction(showMusicVideoDetail: showMusicVideoDetail)
+        let musicVideoSearchAction = MusicVideoSearchAction(showMusicVideoDetail: showMusicVideoDetail)
         
-        self.mainViewController = dependencies.makeMusicVideoSearchViewController(action: mainViewModelAction)
+        self.musicVideoSearchViewController = dependencies.makeMusicVideoSearchViewController(action: musicVideoSearchAction)
         
-        let mainTabBarItem = UITabBarItem(title: "", image: Constants.TabBarImage.asset, tag: 0)
+        let musicVideoSearchViewControllerTabBarItem = UITabBarItem(title: "", image: Constants.TabBarImage.asset, tag: 0)
         
-        guard let mainViewController = mainViewController else { return }
-        mainViewController.tabBarItem = mainTabBarItem
+        guard let musicVideoSearchViewController = musicVideoSearchViewController else { return }
+        musicVideoSearchViewController.tabBarItem = musicVideoSearchViewControllerTabBarItem
         
         if let selectedAsset = Constants.TabBarImage.selectedAsset {
-            mainTabBarItem.selectedImage = selectedAsset
+            musicVideoSearchViewControllerTabBarItem.selectedImage = selectedAsset
         }
         
         navigationController = UINavigationController()
         guard let navigationController = navigationController else { return }
         
         self.tabBarController?.viewControllers = [navigationController]
-        self.navigationController?.pushViewController(mainViewController, animated: true)
+        self.navigationController?.pushViewController(musicVideoSearchViewController, animated: true)
     }
     
     private func showMusicVideoDetail(musicVideo: MusicVideo) {
