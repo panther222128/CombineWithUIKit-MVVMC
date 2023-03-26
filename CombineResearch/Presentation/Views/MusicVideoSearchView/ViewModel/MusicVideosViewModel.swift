@@ -9,7 +9,7 @@ import Combine
 
 protocol MusicVideosViewModel: MusicVideoDataSource {
     var error: PassthroughSubject<String, Never> { get }
-    var musicVideos: CurrentValueSubject<MusicVideos, Error> { get }
+    var items: CurrentValueSubject<[MusicVideoItemViewModel], Error> { get }
     
     func didSearch(query: String)
     func didSelectItem(at index: Int)
@@ -21,9 +21,10 @@ struct MusicVideoSearchAction {
 
 final class DefaultMusicVideosViewModel: MusicVideosViewModel {
     
+    private var musicVideos: MusicVideos = .init(resultCount: 0, results: [])
     private var cancelBag: Set<AnyCancellable>
     private(set) var error: PassthroughSubject<String, Never>
-    private(set) var musicVideos: CurrentValueSubject<MusicVideos, Error>
+    private(set) var items: CurrentValueSubject<[MusicVideoItemViewModel], Error>
     
     private let limit: Int
     private let offset: Int
@@ -37,7 +38,7 @@ final class DefaultMusicVideosViewModel: MusicVideosViewModel {
         self.entity = entity
         self.cancelBag = Set([])
         self.error = PassthroughSubject()
-        self.musicVideos = CurrentValueSubject<MusicVideos, Error>(MusicVideos(resultCount: 0, results: []))
+        self.items = CurrentValueSubject<[MusicVideoItemViewModel], Error>([])
         self.musicVideoSearchUseCase = musicVideoSearchUseCase
         self.action = action
     }
@@ -48,7 +49,7 @@ final class DefaultMusicVideosViewModel: MusicVideosViewModel {
     }
     
     func didSelectItem(at index: Int) {
-        action.showMusicVideoDetail(musicVideos.value.results[index])
+        action.showMusicVideoDetail(musicVideos.results[index])
     }
     
 }
@@ -56,6 +57,11 @@ final class DefaultMusicVideosViewModel: MusicVideosViewModel {
 // MARK: - Private
 
 extension DefaultMusicVideosViewModel {
+    
+    private func load(_ musicVideos: MusicVideos) {
+        self.musicVideos = musicVideos
+        items.value = self.musicVideos.results.map { MusicVideoItemViewModel(musicVideo: $0) }
+    }
     
     private func load(musicVideoQuery: MusicVideoQuery) {
         do {
@@ -73,7 +79,7 @@ extension DefaultMusicVideosViewModel {
                     if musicVideos.resultCount == 0 || musicVideos.results.isEmpty {
                         self?.error.send(Constants.Message.empty)
                     } else {
-                        self?.musicVideos.value = musicVideos
+                        self?.load(musicVideos)
                     }
                 })
                 .store(in: &self.cancelBag)
@@ -87,11 +93,11 @@ extension DefaultMusicVideosViewModel {
 extension DefaultMusicVideosViewModel: MusicVideoDataSource {
     
     func numberOfMusicVideos() -> Int {
-        return musicVideos.value.resultCount
+        return items.value.count
     }
     
-    func loadMusicVideo(at index: Int) -> MusicVideo {
-        return musicVideos.value.results[index]
+    func loadMusicVideo(at index: Int) -> MusicVideoItemViewModel {
+        return items.value[index]
     }
     
 }

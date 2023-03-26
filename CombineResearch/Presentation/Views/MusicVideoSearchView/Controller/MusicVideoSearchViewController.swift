@@ -49,7 +49,7 @@ extension MusicVideoSearchViewController {
     }
     
     private func subscribeMusicVideos() {
-        viewModel.musicVideos
+        viewModel.items
             .debounce(for: 0.5, scheduler: RunLoop.main)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in

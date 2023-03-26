@@ -34,6 +34,7 @@
 		A92D180A2959767E00C0F79A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92D18092959767E00C0F79A /* Constants.swift */; };
 		A92D8E4B29602929007F7F5C /* MusicVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92D8E4929602929007F7F5C /* MusicVideoCell.swift */; };
 		A92D8E4C29602929007F7F5C /* MusicVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A92D8E4A29602929007F7F5C /* MusicVideoCell.xib */; };
+		A95541BA29CFF3A5007803FC /* MusicVideoItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95541B929CFF3A5007803FC /* MusicVideoItemViewModel.swift */; };
 		A9902DD029600FFA0030DF25 /* MusicVideoQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9902DCF29600FFA0030DF25 /* MusicVideoQuery.swift */; };
 		A9902DD2296026B60030DF25 /* MusicVideoListAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9902DD1296026B60030DF25 /* MusicVideoListAdapter.swift */; };
 		A99963642963073500915333 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99963632963073500915333 /* Int.swift */; };
@@ -74,6 +75,7 @@
 		A92D18092959767E00C0F79A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A92D8E4929602929007F7F5C /* MusicVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicVideoCell.swift; sourceTree = "<group>"; };
 		A92D8E4A29602929007F7F5C /* MusicVideoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MusicVideoCell.xib; sourceTree = "<group>"; };
+		A95541B929CFF3A5007803FC /* MusicVideoItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicVideoItemViewModel.swift; sourceTree = "<group>"; };
 		A9902DCF29600FFA0030DF25 /* MusicVideoQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicVideoQuery.swift; sourceTree = "<group>"; };
 		A9902DD1296026B60030DF25 /* MusicVideoListAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicVideoListAdapter.swift; sourceTree = "<group>"; };
 		A99963632963073500915333 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				A92D17F529596C4000C0F79A /* MusicVideosViewModel.swift */,
+				A95541B929CFF3A5007803FC /* MusicVideoItemViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 				A99963662963DC9400915333 /* AppConfiguration.swift in Sources */,
 				A9902DD2296026B60030DF25 /* MusicVideoListAdapter.swift in Sources */,
 				A99963642963073500915333 /* Int.swift in Sources */,
+				A95541BA29CFF3A5007803FC /* MusicVideoItemViewModel.swift in Sources */,
 				A92D17F129596B6900C0F79A /* ViewFlowCoordinator.swift in Sources */,
 				A9BB750029BA1EA6001336AE /* CachedImageView.swift in Sources */,
 				A9218681295DA36900F1623D /* MusicVideo.swift in Sources */,
