@@ -33,7 +33,7 @@ struct MusicVideoResponseDTO: Decodable {
 
     private enum CodingKeys: String, CodingKey {
         case wrapperType, kind
-        case artistID = "artistId"
+        case artistID = "artist"
         case trackID = "trackId"
         case artistName, trackName, trackCensoredName
         case artistViewURL = "artistViewUrl"

@@ -29,7 +29,7 @@ final class DefaultDataTransferService: DataTransferService {
             return try networkService.request(endpoint: endpoint)
                 .decode(type: T.self, decoder: endpoint.responseDecoder)
                 .mapError({ error in
-                    return DataTransferError.decode
+                    return error
                 })
                 .eraseToAnyPublisher()
         } catch {
