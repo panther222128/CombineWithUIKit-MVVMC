@@ -12,7 +12,7 @@ class MusicVideoDetailViewController: UIViewController {
     static let storyboardName = "Main"
     static let storyboardID = "MusicVideoDetailViewController"
     
-    @IBOutlet weak var artworkImageView: CachedImageView!
+    @IBOutlet weak var artworkImageView: UIImageView!
     @IBOutlet weak var trackTimeLabel: UILabel!
     @IBOutlet weak var trackNameLabel: UILabel!
     @IBOutlet weak var artistNameLabel: UILabel!
@@ -39,7 +39,11 @@ class MusicVideoDetailViewController: UIViewController {
         artistNameLabel.text = viewModel.artistName
         primaryGenreNameLabel.text = viewModel.primaryGenreName
         countryLabel.text = viewModel.country
-        artworkImageView.loadImage(with: viewModel.artworkUrl100)
+        ImageCache.shared.image(for: viewModel.artworkUrl100) { [weak self] image in
+            DispatchQueue.main.async {
+                self?.artworkImageView.image = image
+            }
+        }
     }
     
 }
