@@ -7,8 +7,13 @@
 
 import Combine
 
+enum MusicVideosError: Error {
+    case isEmpty
+    case loadError
+}
+
 protocol MusicVideosViewModel: MusicVideoDataSource {
-    var error: PassthroughSubject<String, Never> { get }
+    var error: PassthroughSubject<Error, Never> { get }
     var items: CurrentValueSubject<[MusicVideoItemViewModel], Error> { get }
     
     func didSearch(query: String)
@@ -23,7 +28,7 @@ final class DefaultMusicVideosViewModel: MusicVideosViewModel {
     
     private var musicVideos: MusicVideos = .init(resultCount: 0, results: [])
     private var cancelBag: Set<AnyCancellable>
-    private(set) var error: PassthroughSubject<String, Never>
+    private(set) var error: PassthroughSubject<Error, Never>
     private(set) var items: CurrentValueSubject<[MusicVideoItemViewModel], Error>
     
     private let limit: Int
@@ -72,19 +77,19 @@ extension DefaultMusicVideosViewModel {
                         return
                         
                     case .failure(let error):
-                        self?.error.send("\(error)")
+                        self?.error.send(error)
                         
                     }
                 }, receiveValue: { [weak self] musicVideos in
                     if musicVideos.resultCount == 0 || musicVideos.results.isEmpty {
-                        self?.error.send(Constants.Message.empty)
+                        self?.error.send(MusicVideosError.isEmpty)
                     } else {
                         self?.load(musicVideos)
                     }
                 })
                 .store(in: &self.cancelBag)
         } catch {
-            self.error.send(Constants.Message.loadError)
+            self.error.send(MusicVideosError.loadError)
         }
     }
     

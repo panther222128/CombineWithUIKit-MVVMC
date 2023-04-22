@@ -42,8 +42,8 @@ extension MusicVideoSearchViewController {
     private func subscribeAlert() {
         viewModel.error
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] message in
-                self?.alert(with: message)
+            .sink { [weak self] error in
+                self?.alert(of: error)
             }
             .store(in: &cancelBag)
     }
@@ -58,7 +58,7 @@ extension MusicVideoSearchViewController {
                     return
                     
                 case .failure(let error):
-                    self?.alert(with: error.localizedDescription)
+                    self?.alert(of: error)
                     
                 }
             } receiveValue: { [weak self] _ in
@@ -70,8 +70,8 @@ extension MusicVideoSearchViewController {
 
 // MARK: - Private
 extension MusicVideoSearchViewController {
-    private func alert(with message: String) {
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+    private func alert(of error: Error) {
+        let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
         let defaultAction = UIAlertAction(title: "OK", style: .destructive)
         alert.addAction(defaultAction)
         self.present(alert, animated: true)
