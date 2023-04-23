@@ -24,8 +24,8 @@ final class MusicVideoSearchViewController: UIViewController {
         super.viewDidLoad()
         musicVideoSearchBar.delegate = self
         musicVideoListAdapter = MusicVideoListAdapter(tableView: musicVideoListView, dataSource: viewModel, delegate: self)
-        subscribeAlert()
-        subscribeMusicVideos()
+        subscribeAlert(from: viewModel)
+        subscribeMusicVideos(from: viewModel)
     }
     
     static func create(with viewModel: MusicVideosViewModel) -> MusicVideoSearchViewController {
@@ -39,7 +39,7 @@ final class MusicVideoSearchViewController: UIViewController {
 
 // MARK: - Subscribe
 extension MusicVideoSearchViewController {
-    private func subscribeAlert() {
+    private func subscribeAlert(from viewModel: MusicVideosViewModel) {
         viewModel.error
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
@@ -48,7 +48,7 @@ extension MusicVideoSearchViewController {
             .store(in: &cancelBag)
     }
     
-    private func subscribeMusicVideos() {
+    private func subscribeMusicVideos(from viewModel: MusicVideosViewModel) {
         viewModel.items
             .debounce(for: 0.5, scheduler: RunLoop.main)
             .receive(on: DispatchQueue.main)
