@@ -39,9 +39,11 @@ class MusicVideoDetailViewController: UIViewController {
         artistNameLabel.text = viewModel.artistName
         primaryGenreNameLabel.text = viewModel.primaryGenreName
         countryLabel.text = viewModel.country
-        ImageCache.shared.image(for: viewModel.artworkUrl100) { [weak self] image in
-            DispatchQueue.main.async {
-                self?.artworkImageView.image = image
+        if let url = URL(string: viewModel.artworkUrl100) {
+            ImageCache.shared.image(for: url.absoluteString) { [weak self] image in
+                DispatchQueue.main.async {
+                    self?.artworkImageView.image = image
+                }
             }
         }
     }

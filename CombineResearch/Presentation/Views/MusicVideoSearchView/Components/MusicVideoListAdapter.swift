@@ -47,7 +47,7 @@ extension MusicVideoListAdapter: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MusicVideoCellID", for: indexPath) as? MusicVideoCell else { return .init() }
         guard let dataSource = dataSource else { return .init() }
         let musicVideo = dataSource.loadMusicVideo(at: indexPath.row)
-        cell.configure(with: .init(artist: musicVideo.artist, videoTitle: musicVideo.videoTitle, videoLength: musicVideo.videoLength))
+        cell.configure(with: .init(artistName: musicVideo.artistName, videoTitle: musicVideo.videoTitle, videoLength: musicVideo.videoLength))
         return cell
     }
 }

@@ -7,16 +7,16 @@
 
 import UIKit
 
-class MusicVideoCell: UITableViewCell {
+final class MusicVideoCell: UITableViewCell {
     
-    @IBOutlet weak var artist: UILabel!
-    @IBOutlet weak var videoTitle: UILabel!
-    @IBOutlet weak var videoLength: UILabel!
+    @IBOutlet weak var artistNameLabel: UILabel!
+    @IBOutlet weak var videoTitleLabel: UILabel!
+    @IBOutlet weak var videoLengthLabel: UILabel!
     
     func configure(with viewModel: MusicVideoItemViewModel) {
-        artist.text = viewModel.artist
-        videoTitle.text = viewModel.videoTitle
-        videoLength.text = viewModel.videoLength.convertMillisecondsToTimeString()
+        artistNameLabel.text = viewModel.artistName
+        videoTitleLabel.text = viewModel.videoTitle
+        videoLengthLabel.text = viewModel.videoLength.convertMillisecondsToTimeString()
     }
     
 }

@@ -8,15 +8,13 @@
 import Foundation
 
 struct MusicVideoItemViewModel {
-    let artist: String
+    let artistName: String
     let videoTitle: String
     let videoLength: Int
 }
 
 extension MusicVideoItemViewModel {
-    init(musicVideo: MusicVideo) {
-        self.artist = musicVideo.artistName
-        self.videoTitle = musicVideo.trackName
-        self.videoLength = musicVideo.trackTimeMillis ?? 0
+    static func from(_ musicVideo: MusicVideo) -> MusicVideoItemViewModel {
+        return .init(artistName: musicVideo.artistName, videoTitle: musicVideo.trackName, videoLength: musicVideo.trackTimeMillis ?? 0)
     }
 }

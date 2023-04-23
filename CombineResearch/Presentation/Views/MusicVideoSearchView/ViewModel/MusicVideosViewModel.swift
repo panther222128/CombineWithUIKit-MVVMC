@@ -65,7 +65,7 @@ extension DefaultMusicVideosViewModel {
     
     private func load(_ musicVideos: MusicVideos) {
         self.musicVideos = musicVideos
-        items.value = self.musicVideos.results.map { MusicVideoItemViewModel(musicVideo: $0) }
+        items.value = self.musicVideos.results.map { MusicVideoItemViewModel.from($0) }
     }
     
     private func load(musicVideoQuery: MusicVideoQuery) {
