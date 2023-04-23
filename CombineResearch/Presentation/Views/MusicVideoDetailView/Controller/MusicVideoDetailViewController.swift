@@ -23,7 +23,7 @@ class MusicVideoDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
+        setupViews(with: viewModel)
     }
     
     static func create(with viewModel: MusicVideoDetailViewModel) -> MusicVideoDetailViewController {
@@ -33,7 +33,7 @@ class MusicVideoDetailViewController: UIViewController {
         return viewController
     }
     
-    private func setupViews() {
+    private func setupViews(with viewModel: MusicVideoDetailViewModel) {
         trackTimeLabel.text = viewModel.trackTimeMillis?.convertMillisecondsToTimeString()
         trackNameLabel.text = viewModel.trackName
         artistNameLabel.text = viewModel.artistName

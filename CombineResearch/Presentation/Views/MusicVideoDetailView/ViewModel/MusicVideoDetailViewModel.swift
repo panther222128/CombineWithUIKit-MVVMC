@@ -16,15 +16,16 @@ protocol MusicVideoDetailViewModel {
     var primaryGenreName: String { get }
 }
 
-final class DefaultMusicVideoDetailViewModel: MusicVideoDetailViewModel {
-    
+struct DefaultMusicVideoDetailViewModel: MusicVideoDetailViewModel {
     private(set) var artistName: String
     private(set) var trackName: String
     private(set) var artworkUrl100: String
     private(set) var trackTimeMillis: Int?
     private(set) var country: String
     private(set) var primaryGenreName: String
-    
+}
+
+extension DefaultMusicVideoDetailViewModel {
     init(musicVideo: MusicVideo) {
         self.artistName = musicVideo.artistName
         self.trackName = musicVideo.trackName
@@ -33,5 +34,4 @@ final class DefaultMusicVideoDetailViewModel: MusicVideoDetailViewModel {
         self.country = musicVideo.country
         self.primaryGenreName = musicVideo.primaryGenreName
     }
-    
 }
