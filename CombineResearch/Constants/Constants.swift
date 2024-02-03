@@ -22,10 +22,6 @@ struct Constants {
         static let selectedSettings = UIImage(named: "selected_settings")
     }
     
-    struct BaseURL {
-        static let url = URL(string: "https://itunes.apple.com/")
-    }
-    
     // MARK: - To be localized
     
     struct Message {

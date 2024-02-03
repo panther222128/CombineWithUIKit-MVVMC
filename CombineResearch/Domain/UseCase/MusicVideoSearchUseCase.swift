@@ -7,12 +7,9 @@
 
 import Combine
 
-enum MusicVideoSearchUseCaseError: String, Error {
-    case execute
-}
-
 protocol MusicVideoSearchUseCase {
     func execute(requestValue: SearchMusicVideoUseCaseRequestValue) throws -> AnyPublisher<MusicVideos, Error>
+    func execute(requestValue: SearchMusicVideoUseCaseRequestValue) async throws -> Result<MusicVideos, Error>
 }
 
 final class DefaultMusicVideoSearchUseCase: MusicVideoSearchUseCase {
@@ -27,9 +24,14 @@ final class DefaultMusicVideoSearchUseCase: MusicVideoSearchUseCase {
         do {
             return try musicVideoSearchRepository.fetchMusicVideos(query: requestValue.query, limit: requestValue.limit, offset: requestValue.offset, entity: requestValue.entity)
                 .eraseToAnyPublisher()
-        } catch {
-            throw MusicVideoSearchUseCaseError.execute
+        } catch let error {
+            throw error
         }
+    }
+    
+    func execute(requestValue: SearchMusicVideoUseCaseRequestValue) async throws -> Result<MusicVideos, Error> {
+        let result = try await musicVideoSearchRepository.fetchMusicVideos(query: requestValue.query, limit: requestValue.limit, offset: requestValue.offset, entity: requestValue.entity)
+        return result
     }
     
 }

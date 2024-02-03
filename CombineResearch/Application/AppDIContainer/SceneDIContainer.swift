@@ -11,6 +11,7 @@ final class SceneDIContainer: ViewFlowCoordinatorDependencies {
  
     struct Dependencies {
         let apiDataTransferService: DataTransferService
+        let imageDataTransferService: DataTransferService
     }
     
     private let dependencies: Dependencies
@@ -32,15 +33,19 @@ final class SceneDIContainer: ViewFlowCoordinatorDependencies {
     }
     
     func makeMusicVideosViewModel(action: MusicVideoSearchAction) -> MusicVideosViewModel {
-        return DefaultMusicVideosViewModel(musicVideoSearchUseCase: makeMusicVideoSearchUseCase(), action: action)
+        return DefaultMusicVideosViewModel(musicVideoSearchUseCase: makeMusicVideoSearchUseCase(), musicVideoImageRepository: makeMusicVideoImageRepository(), action: action)
     }
     
     func makeMusicVideoSearchViewController(action: MusicVideoSearchAction) -> MusicVideoSearchViewController {
         return MusicVideoSearchViewController.create(with: makeMusicVideosViewModel(action: action))
     }
     
+    func makeMusicVideoImageRepository() -> MusicVideoImageRepository {
+        return DefaultMusicVideoImageRepository(dataTransferService: dependencies.imageDataTransferService)
+    }
+    
     func makeMusicVideoDetailViewModel(musicVideo: MusicVideo) -> MusicVideoDetailViewModel {
-        return DefaultMusicVideoDetailViewModel(musicVideo: musicVideo)
+        return DefaultMusicVideoDetailViewModel(musicVideoImageRepository: makeMusicVideoImageRepository(), musicVideo: musicVideo)
     }
     
     func makeMusicVideoDetailViewController(musicVideo: MusicVideo) -> MusicVideoDetailViewController {

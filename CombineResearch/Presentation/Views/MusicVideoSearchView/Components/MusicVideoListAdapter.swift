@@ -9,7 +9,8 @@ import UIKit
 
 protocol MusicVideoDataSource: AnyObject {
     func numberOfMusicVideos() -> Int
-    func loadMusicVideo(at index: Int) -> MusicVideoItemViewModel
+    func loadMusicVideo(at indexPath: IndexPath) async -> MusicVideoItemViewModel
+    func loadMusicVideo(at indexPath: IndexPath, completion: @escaping (Result<MusicVideoItemViewModel, Error>) -> Void)
 }
 
 protocol MusicVideoDelegate: AnyObject {
@@ -46,8 +47,20 @@ extension MusicVideoListAdapter: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MusicVideoCellID", for: indexPath) as? MusicVideoCell else { return .init() }
         guard let dataSource = dataSource else { return .init() }
-        let musicVideo = dataSource.loadMusicVideo(at: indexPath.row)
-        cell.configure(with: .init(artistName: musicVideo.artistName, videoTitle: musicVideo.videoTitle, videoLength: musicVideo.videoLength))
+//        Task {
+//            let musicVideo = await dataSource.loadMusicVideo(at: indexPath)
+//            cell.configure(with: .init(artistName: musicVideo.artistName, videoTitle: musicVideo.videoTitle, videoLength: musicVideo.videoLength, artworkImageData: musicVideo.artworkImageData))
+//            return cell
+//        }
+        dataSource.loadMusicVideo(at: indexPath) { result in
+            switch result {
+            case .success(let data):
+                cell.configure(with: data)
+                
+            case .failure(let error):
+                return
+            }
+        }
         return cell
     }
 }

@@ -24,8 +24,8 @@ final class MusicVideoSearchViewController: UIViewController {
         super.viewDidLoad()
         musicVideoSearchBar.delegate = self
         musicVideoListAdapter = MusicVideoListAdapter(tableView: musicVideoListView, dataSource: viewModel, delegate: self)
-        subscribeAlert(from: viewModel)
-        subscribeMusicVideos(from: viewModel)
+        subscribe(musicVideos: viewModel.musicVideosPublisher)
+        subscribe(errorMessage: viewModel.errorPublisher)
     }
     
     static func create(with viewModel: MusicVideosViewModel) -> MusicVideoSearchViewController {
@@ -39,17 +39,17 @@ final class MusicVideoSearchViewController: UIViewController {
 
 // MARK: - Subscribe
 extension MusicVideoSearchViewController {
-    private func subscribeAlert(from viewModel: MusicVideosViewModel) {
-        viewModel.error
+    private func subscribe(errorMessage: AnyPublisher<String, Never>) {
+        errorMessage
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] error in
-                self?.alert(of: error)
+            .sink { [weak self] message in
+                self?.alert(with: message)
             }
             .store(in: &cancelBag)
     }
     
-    private func subscribeMusicVideos(from viewModel: MusicVideosViewModel) {
-        viewModel.items
+    private func subscribe(musicVideos: AnyPublisher<MusicVideos, Never>) {
+        musicVideos
             .debounce(for: 0.5, scheduler: RunLoop.main)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
@@ -58,7 +58,7 @@ extension MusicVideoSearchViewController {
                     return
                     
                 case .failure(let error):
-                    self?.alert(of: error)
+                    self?.alert(with: error.localizedDescription)
                     
                 }
             } receiveValue: { [weak self] _ in
@@ -70,8 +70,8 @@ extension MusicVideoSearchViewController {
 
 // MARK: - Private
 extension MusicVideoSearchViewController {
-    private func alert(of error: Error) {
-        let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+    private func alert(with message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         let defaultAction = UIAlertAction(title: "OK", style: .destructive)
         alert.addAction(defaultAction)
         self.present(alert, animated: true)
@@ -92,6 +92,8 @@ extension MusicVideoSearchViewController: MusicVideoDelegate {
 extension MusicVideoSearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text, !searchText.isEmpty else { return }
-        viewModel.didSearch(query: searchText)
+        Task {
+            await viewModel.didSearchAsync(query: searchText)
+        }
     }
 }

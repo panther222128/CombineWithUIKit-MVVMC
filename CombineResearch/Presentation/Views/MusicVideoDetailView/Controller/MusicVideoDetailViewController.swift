@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class MusicVideoDetailViewController: UIViewController {
 
@@ -21,9 +22,14 @@ class MusicVideoDetailViewController: UIViewController {
     
     private var viewModel: MusicVideoDetailViewModel!
     
+    private var cancellables: Set<AnyCancellable> = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews(with: viewModel)
+        Task {
+            await viewModel.loadArtworkImage()
+            setupViews(with: viewModel)
+        }
     }
     
     static func create(with viewModel: MusicVideoDetailViewModel) -> MusicVideoDetailViewController {
@@ -33,19 +39,29 @@ class MusicVideoDetailViewController: UIViewController {
         return viewController
     }
     
+    private func subscribe(error: AnyPublisher<String, Never>) {
+        error
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] errorMessage in
+                self?.alert(with: errorMessage)
+            }
+            .store(in: &cancellables)
+    }
+    
     private func setupViews(with viewModel: MusicVideoDetailViewModel) {
         trackTimeLabel.text = viewModel.trackTimeMillis?.convertMillisecondsToTimeString()
         trackNameLabel.text = viewModel.trackName
         artistNameLabel.text = viewModel.artistName
         primaryGenreNameLabel.text = viewModel.primaryGenreName
         countryLabel.text = viewModel.country
-        if let url = URL(string: viewModel.artworkUrl100) {
-            ImageCache.shared.image(for: url.absoluteString) { [weak self] image in
-                DispatchQueue.main.async {
-                    self?.artworkImageView.image = image
-                }
-            }
-        }
+        artworkImageView.image = UIImage(data: viewModel.artworkImageData ?? Data())
+    }
+    
+    private func alert(with message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .destructive)
+        alert.addAction(defaultAction)
+        self.present(alert, animated: true)
     }
     
 }
