@@ -27,7 +27,7 @@ final class CacheHandler {
         imageDataCache.setObject(data, forKey: key)
     }
     
-    func readFromCache(with key: Int) -> Data? {
+    func readFromCache(key: Int) -> Data? {
         let key = key as NSNumber
         if let data = imageDataCache.object(forKey: key) as? Data {
             return data

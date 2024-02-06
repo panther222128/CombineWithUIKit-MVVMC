@@ -47,20 +47,20 @@ extension MusicVideoListAdapter: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MusicVideoCellID", for: indexPath) as? MusicVideoCell else { return .init() }
         guard let dataSource = dataSource else { return .init() }
-//        Task {
-//            let musicVideo = await dataSource.loadMusicVideo(at: indexPath)
-//            cell.configure(with: .init(artistName: musicVideo.artistName, videoTitle: musicVideo.videoTitle, videoLength: musicVideo.videoLength, artworkImageData: musicVideo.artworkImageData))
-//            return cell
-//        }
-        dataSource.loadMusicVideo(at: indexPath) { result in
-            switch result {
-            case .success(let data):
-                cell.configure(with: data)
-                
-            case .failure(let error):
-                return
-            }
+        Task {
+            let musicVideo = await dataSource.loadMusicVideo(at: indexPath)
+            cell.configure(with: .init(artistName: musicVideo.artistName, videoTitle: musicVideo.videoTitle, videoLength: musicVideo.videoLength, artworkImageData: musicVideo.artworkImageData))
+            return cell
         }
+//        dataSource.loadMusicVideo(at: indexPath) { result in
+//            switch result {
+//            case .success(let data):
+//                cell.configure(with: data)
+//                
+//            case .failure(let error):
+//                return
+//            }
+//        }
         return cell
     }
 }

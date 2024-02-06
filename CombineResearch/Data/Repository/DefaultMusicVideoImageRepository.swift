@@ -16,7 +16,7 @@ final class DefaultMusicVideoImageRepository: MusicVideoImageRepository {
     }
     
     func fetchMusicVideoImage(with urlString: String, trackID: Int) async -> Result<Data, Error> {
-        if let cachedData = CacheHandler.shared.readFromCache(with: trackID) {
+        if let cachedData = CacheHandler.shared.readFromCache(key: trackID) {
             let success: Result<Data, Error> = .success(cachedData)
             return success
         } else {
@@ -25,9 +25,13 @@ final class DefaultMusicVideoImageRepository: MusicVideoImageRepository {
                 switch requestResult {
                 case .success(let data):
                     CacheHandler.shared.addToCache(key: trackID, data: data)
-                    let cachedData = CacheHandler.shared.readFromCache(with: trackID)!
-                    let success: Result<Data, Error> = .success(cachedData)
-                    return success
+                    if let cachedData = CacheHandler.shared.readFromCache(key: trackID) {
+                        let success: Result<Data, Error> = .success(cachedData)
+                        return success
+                    } else {
+                        let success: Result<Data, Error> = .success(Data())
+                        return success
+                    }
                     
                 case .failure(let error):
                     let failure: Result<Data, Error> = .failure(error)
@@ -42,7 +46,7 @@ final class DefaultMusicVideoImageRepository: MusicVideoImageRepository {
     }
     
     func fetchMusicVideoImage(with urlString: String, trackID: Int, completion: @escaping (Result<Data?, Error>) -> Void) {
-        if let cachedData = CacheHandler.shared.readFromCache(with: trackID) {
+        if let cachedData = CacheHandler.shared.readFromCache(key: trackID) {
             let success: Result<Data?, Error> = .success(cachedData)
             completion(success)
         } else {
@@ -51,7 +55,7 @@ final class DefaultMusicVideoImageRepository: MusicVideoImageRepository {
                 case .success(let data):
                     if let data = data {
                         CacheHandler.shared.addToCache(key: trackID, data: data)
-                        let cachedData = CacheHandler.shared.readFromCache(with: trackID)!
+                        let cachedData = CacheHandler.shared.readFromCache(key: trackID)
                         completion(.success(cachedData))
                     } else {
                         completion(.success(nil))
